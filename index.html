@@ -3,233 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layanan Pengaduan & Saran - SDN 1 Sumber</title>
+    <title>SP4N-LAPOR! - SD Negeri 1 Sumber</title>
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebar-dark { background-color: #2b3541; }
+        .sidebar-item-active { background-color: #1e252e; border-left: 4px solid #3b82f6; }
+    </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
+<body class="bg-slate-100 font-sans text-slate-800 flex flex-col min-h-screen">
 
-    <!-- HEADER -->
-    <header class="bg-blue-800 text-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-white text-blue-800 rounded-full flex items-center justify-center font-bold text-xl shadow">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight">SDN 1 SUMBER</h1>
-                    <p class="text-xs text-blue-200">Layanan Pengaduan & Saran Online</p>
-                </div>
-            </div>
-            <a href="#form-section" class="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold px-4 py-2 rounded-lg text-sm shadow transition">
-                <i class="fas fa-edit mr-1"></i> Buat Laporan
-            </a>
+    <!-- TOP NAVBAR -->
+    <header class="bg-slate-800 text-slate-300 text-xs px-4 py-2 flex justify-between items-center border-b border-slate-700">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-lock text-emerald-400"></i>
+            <span class="font-mono text-slate-200">https://lapor.go.id/admin/monitor/statistik#pemanfaatan-data</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">SDN 1 Sumber Admin</span>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="bg-gradient-to-b from-blue-800 to-blue-600 text-white py-12 px-4 text-center">
-        <div class="max-w-3xl mx-auto">
-            <span class="bg-blue-900 text-blue-200 text-xs px-3 py-1 rounded-full uppercase font-semibold tracking-wider">Layanan Resmi Sekolah</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold mt-3 mb-4 leading-tight">Sampaikan Masukan Demi Kemajuan SDN 1 Sumber</h2>
-            <p class="text-blue-100 text-sm md:text-base mb-8">
-                Kami siap mendengarkan aspirasi, saran, dan pengaduan dari Orang Tua, Siswa, Guru, dan Masyarakat secara aman, cepat, dan terpercaya.
-            </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-800">
-                <div class="bg-white p-3 rounded-xl shadow text-center">
-                    <i class="fas fa-user-shield text-blue-600 text-2xl mb-1"></i>
-                    <p class="text-xs font-bold">Bisa Anonim</p>
-                </div>
-                <div class="bg-white p-3 rounded-xl shadow text-center">
-                    <i class="fas fa-bolt text-yellow-500 text-2xl mb-1"></i>
-                    <p class="text-xs font-bold">Respon Cepat</p>
-                </div>
-                <div class="bg-white p-3 rounded-xl shadow text-center">
-                    <i class="fas fa-camera text-emerald-600 text-2xl mb-1"></i>
-                    <p class="text-xs font-bold">Lampiran Foto</p>
-                </div>
-                <div class="bg-white p-3 rounded-xl shadow text-center">
-                    <i class="fas fa-eye text-indigo-600 text-2xl mb-1"></i>
-                    <p class="text-xs font-bold">Transparan</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FORM SECTION -->
-    <main id="form-section" class="container mx-auto px-4 py-10 max-w-2xl">
-        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100">
-            <div class="border-b pb-4 mb-6">
-                <h3 class="text-xl font-bold text-slate-800 flex items-center">
-                    <i class="fas fa-paper-plane text-blue-600 mr-2"></i> Formulir Pengaduan / Saran
-                </h3>
-                <p class="text-xs text-slate-500 mt-1">Silakan isi formulir di bawah ini. Identitas Anda dijamin aman & terlindungi.</p>
-            </div>
-
-            <form id="complaintForm" onsubmit="handleSubmit(event)" class="space-y-5">
-                
-                <!-- Identitas / Anonim -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Sifat Laporan</label>
-                    <div class="flex space-x-4">
-                        <label class="flex items-center space-x-2 text-sm cursor-pointer">
-                            <input type="radio" name="sifat" value="Publik" checked onclick="toggleIdentity(true)" class="text-blue-600 focus:ring-blue-500">
-                            <span>Sertakan Identitas</span>
-                        </label>
-                        <label class="flex items-center space-x-2 text-sm cursor-pointer">
-                            <input type="radio" name="sifat" value="Anonim" onclick="toggleIdentity(false)" class="text-blue-600 focus:ring-blue-500">
-                            <span class="font-bold text-slate-600">Rahasia / Anonim</span>
-                        </label>
+    <div class="flex flex-1">
+        <!-- SIDEBAR NAVIGASI (SP4N LAPOR) -->
+        <aside class="w-64 sidebar-dark text-slate-300 flex flex-col justify-between hidden md:flex shrink-0">
+            <div>
+                <!-- LOGO SP4N LAPOR -->
+                <div class="p-4 border-b border-slate-700 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-red-600 text-white font-black px-2 py-1 rounded text-sm tracking-wider">
+                            LAPOR!
+                        </div>
+                        <span class="text-xs font-bold text-white tracking-widest">SP4N</span>
                     </div>
                 </div>
 
-                <!-- Field Nama & Kontak -->
-                <div id="identityFields" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap</label>
-                        <input type="text" id="nama" class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Masukkan nama Anda">
+                <!-- INSTANSI INFO -->
+                <div class="p-4 border-b border-slate-700 bg-slate-800/50">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="text-xs font-bold text-white truncate">SD Negeri 1 Sumber</h4>
+                            <div class="flex items-center text-amber-400 text-[10px] mt-0.5">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="text-slate-400 ml-1">(4.00)</span>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">No. WhatsApp / HP</label>
-                        <input type="tel" id="kontak" class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="08xxxxxxxxxx">
-                    </div>
+                    <a href="#form-section" class="mt-3 block text-center w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-3 rounded shadow transition">
+                        <i class="fas fa-edit mr-1"></i> BUAT LAPORAN
+                    </a>
                 </div>
 
-                <!-- Status Pelapor -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Status Anda <span class="text-red-500">*</span></label>
-                    <select id="statusPelapor" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-                        <option value="">-- Pilih Status Pelapor --</option>
-                        <option value="Orang Tua / Wali Murid">Orang Tua / Wali Murid</option>
-                        <option value="Siswa">Siswa</option>
-                        <option value="Guru / Staf">Guru / Staf Sekolah</option>
-                        <option value="Masyarakat Umum">Masyarakat Umum</option>
-                    </select>
-                </div>
+                <!-- MENU ITEMS -->
+                <nav class="mt-2 text-xs font-medium space-y-1">
+                    <div class="px-4 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pemanfaatan</div>
+                    <a href="#" class="sidebar-item-active text-white px-4 py-2.5 flex items-center justify-between">
+                        <span class="flex items-center"><i class="fas fa-chart-pie mr-3 text-blue-400"></i> Pemanfaatan Data</span>
+                        <span class="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">1</span>
+                    </a>
 
-                <!-- Kategori Masukan -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori Masukan <span class="text-red-500">*</span></label>
-                    <select id="kategori" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="Fasilitas & Sarana Sekolah">Fasilitas & Sarana Sekolah</option>
-                        <option value="Proses Belajar Mengajar (PBM)">Proses Belajar Mengajar (PBM)</option>
-                        <option value="Kebersihan & Lingkungan">Kebersihan & Lingkungan</option>
-                        <option value="Pelayanan Administrasi / TU">Pelayanan Administrasi / TU</option>
-                        <option value="Kedisiplinan & Keamanan">Kedisiplinan & Keamanan</option>
-                        <option value="Saran & Usulan Lainnya">Saran & Usulan Lainnya</option>
-                    </select>
-                </div>
-
-                <!-- Detail Pengaduan -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Isi Pengaduan / Saran <span class="text-red-500">*</span></label>
-                    <textarea id="uraian" rows="4" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ceritakan secara detail masukan, kronologi, atau keluhan Anda..."></textarea>
-                </div>
-
-                <!-- UPLOAD FOTO BUKTI -->
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
-                    <label class="block text-xs font-bold text-blue-900 mb-1 flex items-center">
-                        <i class="fas fa-camera text-blue-600 mr-2"></i> Foto Bukti / Lampiran (Opsional)
-                    </label>
-                    <p class="text-xs text-slate-500 mb-3">Upload foto kerusakan fasilitas, kondisi lingkungan, atau berkas pendukung.</p>
-                    
-                    <input type="file" id="fotoBukti" accept="image/*" onchange="previewImage(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
-                    
-                    <!-- Pratinjau Foto -->
-                    <div id="previewContainer" class="mt-3 hidden">
-                        <p class="text-xs text-emerald-700 font-semibold mb-1"><i class="fas fa-check-circle"></i> Foto siap terlampir:</p>
-                        <img id="imagePreview" class="max-h-48 rounded-lg border shadow-sm object-cover">
-                    </div>
-                </div>
-
-                <!-- Usulan Solusi -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Harapan / Usulan Solusi (Opsional)</label>
-                    <textarea id="solusi" rows="2" class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Apa harapan atau usulan perbaikan dari Anda?"></textarea>
-                </div>
-
-                <!-- Tombol Kirim -->
-                <button type="submit" id="btnKirim" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-xl shadow-lg transition duration-200 flex items-center justify-center space-x-2">
-                    <i class="fas fa-paper-plane"></i>
-                    <span id="btnText">Kirim Pengaduan Sekarang</span>
-                </button>
-
-            </form>
-        </div>
-
-        <!-- DAFTAR LAPORAN REKAP ANONIM -->
-        <div class="mt-12 bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h4 class="font-bold text-slate-800 text-base flex items-center">
-                    <i class="fas fa-list-alt text-blue-600 mr-2"></i> Laporan Masuk Terakhir (Anonim)
-                </h4>
-                <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2.5 py-1 rounded-full" id="totalLaporanBadge">2 Laporan</span>
+                    <div class="px-4 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-4">Laporan</div>
+                    <a href="#form-section" class="hover:bg-slate-700/50 px-4 py-2 flex items-center text-slate-400">
+                        <i class="fas fa-inbox mr-3 w-4"></i> Submisi Laporan
+                    </a>
+                    <a href="#" class="hover:bg-slate-700/50 px-4 py-2 flex items-center text-slate-400">
+                        <i class="fas fa-share-alt mr-3 w-4"></i> Terdisposisi
+                    </a>
+                    <a href="#" class="hover:bg-slate-700/50 px-4 py-2 flex items-center text-slate-400">
+                        <i class="fas fa-check-circle mr-3 w-4"></i> Selesai (16)
+                    </a>
+                </nav>
             </div>
             
-            <p class="text-xs text-slate-500 mb-4">
-                Berikut adalah daftar aspirasi masyarakat yang telah masuk. Nama dan identitas pelapor <strong>selalu disamarkan/di-anonimkan</strong> demi menjaga kerahasiaan.
-            </p>
+            <div class="p-4 border-t border-slate-700 text-[10px] text-slate-500 text-center">
+                SP4N-LAPOR! SD Negeri 1 Sumber &copy; 2026
+            </div>
+        </aside>
 
-            <div id="daftarPengaduan" class="space-y-4">
-                <div class="p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-md transition">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">Fasilitas & Sarana Sekolah</span>
-                        <span class="text-[10px] text-slate-400">30 Juli 2026</span>
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 p-4 md:p-6 overflow-y-auto space-y-6">
+            
+            <!-- INFORMASI SUBTITLE -->
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-base font-bold text-slate-800">Rekapitulasi & Layanan Pengaduan SP4N-LAPOR!</h2>
+                    <p class="text-xs text-slate-500">Unit Kerja: <span class="font-semibold text-slate-700">SD Negeri 1 Sumber</span> | Periode: <span class="font-semibold text-slate-700">Tahun 2025-2026</span></p>
+                </div>
+                <a href="#form-section" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition flex items-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Buat Laporan Baru
+                </a>
+            </div>
+
+            <!-- BAGIAN STATISTIK (DARI GAMBAR REKAP) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- PENGELOLAAN LAPORAN MASUK -->
+                <section class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-4 py-3 border-b border-slate-200">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Pengelolaan Laporan Masuk</h3>
                     </div>
-                    <p class="text-xs font-semibold text-slate-800 mb-1">Pelapor: <span class="text-slate-500 font-normal">Anonim (Orang Tua / Wali Murid)</span></p>
-                    <p class="text-xs text-slate-600 mb-2">"Atap ruang kelas 4 bocor saat hujan deras. Mohon diperbaiki demi kenyamanan belajar siswa."</p>
-                    <div class="flex items-center justify-between text-[11px] pt-2 border-t border-slate-200">
-                        <span class="text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Status: Selesai Ditindaklanjuti</span>
-                        <span class="text-slate-400">ID: #LAPOR-001</span>
+                    <div class="p-4 flex flex-col items-center">
+                        <div class="w-40 h-40 mb-4">
+                            <canvas id="chartPengelolaan"></canvas>
+                        </div>
+                        <div class="w-full space-y-1.5 text-xs">
+                            <div class="flex justify-between py-1 border-b"><span>Terdisposisi Selesai</span> <span class="font-bold text-emerald-600">16</span></div>
+                            <div class="flex justify-between py-1 font-bold text-slate-800"><span>Total (Tanpa Arsip & Tunda)</span> <span class="text-blue-600">16</span></div>
+                        </div>
                     </div>
+                </section>
+
+                <!-- SUMBER LAPORAN -->
+                <section class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-4 py-3 border-b border-slate-200">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Sumber Laporan</h3>
+                    </div>
+                    <div class="p-4 flex flex-col items-center">
+                        <div class="w-40 h-40 mb-4">
+                            <canvas id="chartSumber"></canvas>
+                        </div>
+                        <div class="w-full space-y-1.5 text-xs">
+                            <div class="flex justify-between py-1 border-b"><span>Website / Portal Online</span> <span class="font-bold text-blue-600">16</span></div>
+                            <div class="flex justify-between py-1 font-bold text-slate-800"><span>Total</span> <span class="text-blue-600">16</span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- FORMULIR PENGADUAN & KATEGORI -->
+            <section id="form-section" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-b pb-4 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-edit text-red-600 mr-2"></i> Formulir Pengaduan / Aspirasi Masyarakat
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">Sampaikan keluhan, saran, atau pelaporan kerusakan sarana prasarana sekolah melalui form di bawah ini.</p>
                 </div>
 
-                <div class="p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-md transition">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Kebersihan & Lingkungan</span>
-                        <span class="text-[10px] text-slate-400">29 Juli 2026</span>
+                <form id="complaintForm" onsubmit="handleSubmit(event)" class="space-y-4 text-xs">
+                    
+                    <!-- Sifat Laporan -->
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <label class="block font-semibold text-slate-700 mb-1.5">Sifat Laporan</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center space-x-1.5 cursor-pointer">
+                                <input type="radio" name="sifat" value="Publik" checked onclick="toggleIdentity(true)" class="accent-red-600">
+                                <span>Sertakan Identitas</span>
+                            </label>
+                            <label class="flex items-center space-x-1.5 cursor-pointer">
+                                <input type="radio" name="sifat" value="Anonim" onclick="toggleIdentity(false)" class="accent-red-600">
+                                <span class="font-bold text-slate-600">Rahasia / Anonim</span>
+                            </label>
+                        </div>
                     </div>
-                    <p class="text-xs font-semibold text-slate-800 mb-1">Pelapor: <span class="text-slate-500 font-normal">Anonim (Siswa)</span></p>
-                    <p class="text-xs text-slate-600 mb-2">"Wastafel tempat cuci tangan depan kelas 1 airnya mampet dan agak berbau."</p>
-                    <div class="flex items-center justify-between text-[11px] pt-2 border-t border-slate-200">
-                        <span class="text-amber-600 font-bold"><i class="fas fa-spinner mr-1"></i> Status: Sedang Diproses</span>
-                        <span class="text-slate-400">ID: #LAPOR-002</span>
+
+                    <!-- Identitas -->
+                    <div id="identityFields" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Lengkap</label>
+                            <input type="text" id="nama" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">No. WhatsApp / HP</label>
+                            <input type="tel" id="kontak" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500" placeholder="08xxxxxxxxxx">
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- BARCODE / QR CODE INTEGRATED -->
-        <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
-            <h4 class="font-bold text-slate-800 text-sm mb-1">Scan QR Code Pengaduan</h4>
-            <p class="text-xs text-slate-500 mb-3">Pindai kode di bawah ini menggunakan kamera HP untuk membuka laman ini dengan cepat:</p>
-            <div class="inline-block p-2 bg-white rounded-xl border border-slate-200 shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://prasetio888-code.github.io/pengaduan-sdn1sumber/" alt="QR Code Pengaduan SDN 1 Sumber" class="w-40 h-40 mx-auto rounded-lg">
-            </div>
-            <p class="text-[11px] text-slate-400 mt-2">`https://prasetio888-code.github.io/pengaduan-sdn1sumber/`</p>
-        </div>
+                    <!-- Status Pelapor -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Status Pelapor <span class="text-red-500">*</span></label>
+                        <select id="statusPelapor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none bg-white focus:ring-2 focus:ring-red-500">
+                            <option value="">-- Pilih Status Pelapor --</option>
+                            <option value="Orang Tua / Wali Murid">Orang Tua / Wali Murid</option>
+                            <option value="Siswa">Siswa</option>
+                            <option value="Guru / Staf">Guru / Staf Sekolah</option>
+                            <option value="Masyarakat Umum">Masyarakat Umum</option>
+                        </select>
+                    </div>
 
-        <!-- KONTAK ALTERNATIF WA PENGELOLA -->
-        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
-            <h4 class="font-bold text-blue-900 text-sm mb-2">Butuh Konsultasi Langsung?</h4>
-            <p class="text-xs text-blue-700 mb-4">Anda juga bisa berkonsultasi langsung di Ruang Khusus Konsultasi SDN 1 Sumber.</p>
-            <a href="https://wa.me/628980250698?text=Halo%20Petugas%20SDN%201%20Sumber,%20saya%20ingin%20berkonsultasi" target="_blank" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition">
-                <i class="fab fa-whatsapp text-base"></i>
-                <span>Chat Petugas via WhatsApp</span>
-            </a>
-        </div>
-    </main>
+                    <!-- Kategori Masukan -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Kategori Masukan / Kendala <span class="text-red-500">*</span></label>
+                        <select id="kategori" required class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none bg-white focus:ring-2 focus:ring-red-500">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Fasilitas & Sarana Sekolah">Fasilitas & Sarana Sekolah</option>
+                            <option value="Proses Belajar Mengajar (PBM)">Proses Belajar Mengajar (PBM)</option>
+                            <option value="Kebersihan & Lingkungan">Kebersihan & Lingkungan</option>
+                            <option value="Pelayanan Administrasi / TU">Pelayanan Administrasi / TU</option>
+                            <option value="Kedisiplinan & Keamanan">Kedisiplinan & Keamanan</option>
+                            <option value="Saran & Usulan Lainnya">Saran & Usulan Lainnya</option>
+                        </select>
+                    </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs border-t border-slate-700">
-        <div class="container mx-auto px-4">
-            <p class="font-semibold text-slate-300 mb-1">SD NEGERI 1 SUMBER</p>
-            <p class="mb-3">Jl. Raya Sumber No. 1, Kec. Sumber, Kab. Cirebon, Jawa Barat 45611</p>
-            <p>&copy; 2026 Tim Pengelola Layanan & Pengaduan SDN 1 Sumber.</p>
-        </div>
-    </footer>
+                    <!-- Isi Pengaduan -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Isi Pengaduan / Keluhan <span class="text-red-500">*</span></label>
+                        <textarea id="uraian" rows="4" required class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500" placeholder="Ceritakan detail masalah atau kerusakan sarana prasarana yang ingin dilaporkan..."></textarea>
+                    </div>
+
+                    <!-- Upload Foto Bukti -->
+                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-200">
+                        <label class="block font-bold text-blue-900 mb-1 flex items-center">
+                            <i class="fas fa-camera text-blue-600 mr-2"></i> Foto Bukti / Lampiran Kerusakan (Opsional)
+                        </label>
+                        <p class="text-slate-500 mb-3">Unggah foto kondisi kerusakan fasilitas atau berkas pendukung dari HP/Komputer Anda.</p>
+                        
+                        <input type="file" id="fotoBukti" accept="image/*" onchange="previewImage(event)" class="block w-full text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        
+                        <div id="previewContainer" class="mt-3 hidden">
+                            <p class="text-emerald-700 font-semibold mb-1"><i class="fas fa-check-circle"></i> Foto siap terlampir:</p>
+                            <img id="imagePreview" class="max-h-40 rounded-lg border shadow-sm object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Harapan / Usulan Solusi -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Harapan / Usulan Solusi (Opsional)</label>
+                        <textarea id="solusi" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500" placeholder="Apa harapan atau usulan perbaikan dari Anda?"></textarea>
+                    </div>
+
+                    <!-- Tombol Kirim -->
+                    <button type="submit" id="btnKirim" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow transition flex items-center justify-center space-x-2 text-sm">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        <span id="btnText">Kirim Laporan via WhatsApp</span>
+                    </button>
+
+                </form>
+            </section>
+
+        </main>
+    </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
@@ -251,39 +262,6 @@
             };
             if(event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
-            }
-        }
-
-        function loadSavedReports() {
-            const saved = JSON.parse(localStorage.getItem('sdn1sumber_laporan') || '[]');
-            const container = document.getElementById('daftarPengaduan');
-            const badge = document.getElementById('totalLaporanBadge');
-
-            if (saved.length > 0) {
-                badge.innerText = `${saved.length + 2} Laporan`;
-                saved.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-md transition";
-                    
-                    let fotoBadge = item.fotoUrl && item.fotoUrl.startsWith('http') 
-                        ? `<a href="${item.fotoUrl}" target="_blank" class="text-[11px] text-blue-600 underline mt-1 block"><i class="fas fa-image mr-1"></i>Lihat Foto Lampiran</a>` 
-                        : '';
-
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">${item.kategori}</span>
-                            <span class="text-[10px] text-slate-400">${item.tgl}</span>
-                        </div>
-                        <p class="text-xs font-semibold text-slate-800 mb-1">Pelapor: <span class="text-slate-500 font-normal">Anonim (${item.status})</span></p>
-                        <p class="text-xs text-slate-600 mb-1">"${item.uraian}"</p>
-                        ${fotoBadge}
-                        <div class="flex items-center justify-between text-[11px] pt-2 border-t border-slate-200 mt-2">
-                            <span class="text-blue-600 font-bold"><i class="fas fa-clock mr-1"></i> Status: Baru Terkirim</span>
-                            <span class="text-slate-400">ID: #${item.id}</span>
-                        </div>
-                    `;
-                    container.prepend(card);
-                });
             }
         }
 
@@ -327,34 +305,18 @@
                     if (data.secure_url) {
                         fotoUrl = data.secure_url;
                     } else {
-                        fotoUrl = "[Foto Terlampir dari HP]";
+                        fotoUrl = "[Foto Terlampir dari Perangkat]";
                     }
                 } catch (err) {
-                    fotoUrl = "[Foto Terlampir dari HP]";
+                    fotoUrl = "[Foto Terlampir dari Perangkat]";
                 }
             }
 
-            const randomId = 'LAPOR-' + Math.floor(100 + Math.random() * 900);
-            const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-            
-            const newReport = {
-                id: randomId,
-                tgl: today,
-                kategori: kategori,
-                status: status,
-                uraian: uraian,
-                fotoUrl: fotoUrl
-            };
-
-            const existingReports = JSON.parse(localStorage.getItem('sdn1sumber_laporan') || '[]');
-            existingReports.push(newReport);
-            localStorage.setItem('sdn1sumber_laporan', JSON.stringify(existingReports));
-
-            const textPesan = `*PENGADUAN ONLINE SDN 1 SUMBER*\n\n` +
+            const textPesan = `*SP4N-LAPOR! SD NEGERI 1 SUMBER*\n\n` +
                 `*Sifat:* ${sifat}\n` +
                 `*Nama:* ${nama}\n` +
                 `*No. HP:* ${kontak}\n` +
-                `*Status:* ${status}\n` +
+                `*Status Pelapor:* ${status}\n` +
                 `*Kategori:* ${kategori}\n\n` +
                 `*Isi Pengaduan / Masukan:*\n${uraian}\n\n` +
                 `*Foto Bukti / Lampiran:*\n${fotoUrl}\n\n` +
@@ -364,15 +326,35 @@
 
             document.getElementById('complaintForm').reset();
             document.getElementById('previewContainer').classList.add('hidden');
-            loadSavedReports();
 
             btnKirim.disabled = false;
-            btnText.innerText = "Kirim Pengaduan Sekarang";
+            btnText.innerText = "Kirim Laporan via WhatsApp";
 
             window.location.href = urlWA;
         }
 
-        window.onload = loadSavedReports;
+        // CHART RENDER
+        window.addEventListener('DOMContentLoaded', () => {
+            const ctxPengelolaan = document.getElementById('chartPengelolaan').getContext('2d');
+            new Chart(ctxPengelolaan, {
+                type: 'pie',
+                data: {
+                    labels: ['Selesai'],
+                    datasets: [{ data: [16], backgroundColor: ['#10b981'], borderWidth: 1, borderColor: '#ffffff' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            const ctxSumber = document.getElementById('chartSumber').getContext('2d');
+            new Chart(ctxSumber, {
+                type: 'pie',
+                data: {
+                    labels: ['Website'],
+                    datasets: [{ data: [16], backgroundColor: ['#3b82f6'], borderWidth: 1, borderColor: '#ffffff' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        });
     </script>
 </body>
 </html>
